@@ -1,8 +1,13 @@
+/* 인트로 시작 화면 */
+
 .container {
+  height: 80%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid black; */
 }
 .left {
   flex: 4;

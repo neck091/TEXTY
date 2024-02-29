@@ -1,8 +1,11 @@
-/* styles/Home.module.css 파일 */
-.container {
+/* 인트로 화면 세팅*/
+.line {
+  width: 80%;
+  margin: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  justify-items: center;
   border: 2px solid black;
   width: 100%;
   max-width: 600px;

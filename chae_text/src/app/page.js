@@ -1,4 +1,5 @@
 import styles from "./styles/Home.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,7 +9,7 @@ export default function Home() {
         <div className={styles.grid}>
           <button className={styles.card}>
             <h2 className="title">
-              <a href="/test">게임시작</a> &rarr;
+              <Link href="/game">게임시작</Link> &rarr;
             </h2>
           </button>
           <button className={styles.card}>
