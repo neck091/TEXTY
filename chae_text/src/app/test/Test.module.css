@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.main {
+  border: 1px solid black;
+  text-align: center;
+  width: 30%;
+  height: 80%;
+}
+
+.title {
+  margin: 20px auto;
+  margin-top: 30px;
+}
+
+.quizSub {
+  background: #eee;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  margin-top: 200px;
+}
+
+.quizCard {
+  background: #eee;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+}
+
+.answerButton {
+  background: #ddd;
+  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 50px;
+}
+
+.answerButton:hover {
+  background: #ccc;
+}
