@@ -1,0 +1,27 @@
+.square {
+  border: 1px solid #ddd;
+  background-color: transparent;
+  padding: 50px 55px;
+}
+.square:focus {
+  background-color: rgb(111, 178, 255);
+}
+div {
+  display: flex;
+  justify-content: center;
+}
+div.inputs {
+  display: flex;
+  width: 40vh;
+  margin: 10px auto;
+}
+
+.input {
+  flex: 5;
+  margin: 0 auto;
+  padding: 6px 0;
+  font-size: large;
+}
+.button {
+  flex: 1;
+}
