@@ -108,7 +108,7 @@ export default function Telephone() {
         <input
           className="input"
           type="text"
-          value={inputValue.replace(/\d/g, "#")}
+          value={inputValue.replace(/[\d\S]/g, "#")}
           readOnly
         />
         <input

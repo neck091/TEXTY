@@ -123,6 +123,7 @@ export default function Game() {
         />
       </div>
       <a href="/puzzle1">전화번호</a>
+      <a href="/puzzle2">두번째 퍼즐</a>
       <div className="game-info">
         <ol>{moves}</ol>
       </div>
