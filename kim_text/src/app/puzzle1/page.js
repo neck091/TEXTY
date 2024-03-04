@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
+import React, { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import "./puzzle1.css";
 
 export default function Telephone() {
   const [inputValue, setInputValue] = useState("");
+  const router = useRouter();
 
   const handleButtonClick = (number) => {
     setInputValue((prev) => prev + number);
@@ -14,12 +15,19 @@ export default function Telephone() {
     setInputValue("");
   };
 
-  useEffect(() => {
-    // inputValue가 변경될 때마다 전화번호를 확인하여 페이지 이동
-    if (inputValue === "0101234") {
-      redirect("/main");
+  const handleSubmit = () => {
+    if (inputValue === "010") {
+      alert(inputValue);
+      router.push("/main");
     }
-  }, [inputValue]);
+  };
+
+  // useEffect(() => {
+  //   // inputValue가 변경될 때마다 전화번호를 확인하여 페이지 이동
+  //   if (inputValue === "01094625221") {
+  //     redirect("/main");
+  //   }
+  // }, [inputValue]);
 
   return (
     <>
@@ -108,7 +116,7 @@ export default function Telephone() {
         <input
           className="input"
           type="text"
-          value={inputValue.replace(/[\d\S]/g, "#")}
+          value={inputValue}
           readOnly
         />
         <input
@@ -116,6 +124,12 @@ export default function Telephone() {
           type="reset"
           value="리셋"
           onClick={handleReset}
+        />
+        <input
+          className="button"
+          type="submit"
+          value="입력"
+          onClick={handleSubmit}
         />
       </div>
     </>
