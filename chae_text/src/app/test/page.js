@@ -33,7 +33,7 @@ export default function TEST() {
     <div className={styles.container}>
       <main className={styles.main}>
         <header className={styles.title}>
-          <h1 className={styles.title}>심리테스트</h1>
+          <h1>심리테스트</h1>
         </header>
         <div className="name">
           <span>플레이어 이름</span>
