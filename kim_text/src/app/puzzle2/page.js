@@ -1,8 +1,8 @@
 "use client";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // redirect 함수 추가
 import "./puzzle2.css";
+import Inventory from "../comps/Inventory";
 
 export default function Answer() {
   const router = useRouter();
@@ -15,11 +15,13 @@ export default function Answer() {
   const handleSubmit = () => {
     if (inputValue === "0412") {
       router.push("/main"); // 정답을 입력하면 /main 페이지로 이동
+    } else {
+      alert("번호가 맞지 않습니다.");
     }
   };
 
   return (
-    <>
+    <section>
       <div className="rap">
         <div className="header">
           <h2>2024</h2>
@@ -70,6 +72,18 @@ export default function Answer() {
           <div>30</div>
         </div>
       </div>
+      <div>
+        <ul className="text">
+          <li>- 그녀석은 6보다 밑에 있어</li>
+          <li>- 10 보다는 오른쪽에 있어</li>
+          <li>- 나는 휴일이 싫어.</li>
+          <li>- 6 번째 요일이 내 자리야.</li>
+          <li>- 나는 3 번째 행보다 밑이 아니야.</li>
+        </ul>
+      </div>
+      <ul className="text">
+        <li className="text">* 4자리 숫자로 입력해주세요. *</li>
+      </ul>
       <div className="input">
         <input
           className="input"
@@ -77,8 +91,11 @@ export default function Answer() {
           value={inputValue}
           onChange={handleInputChange}
         />
-        <button onClick={handleSubmit}>입력</button>
+        <button className="button" onClick={handleSubmit}>
+          입력
+        </button>
       </div>
-    </>
+      <Inventory />
+    </section>
   );
 }
