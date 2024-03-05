@@ -1,22 +1,19 @@
 "use client";
 
+import { useRouter } from "next/router"; // useRouter 훅을 불러옵니다.
 import React, { useState } from "react";
 import styles from "./Test.module.css"; // 스타일링을 위한 CSS 모듈 파일
 
 const questions = [
   {
-    question: "질문 1",
-    answers: ["답변 1", "답변 2", "답변 3"],
-  },
-  {
-    question: "질문 2",
-    answers: ["답변 1", "답변 2", "답변 3"],
+    question: "새로운 도전에 대한 태도는 어떠신가요?",
+    answers: ["두렵다", "설렌다", "두렵고도 설렌다"],
   },
 
   // 추가 질문들...
 ];
 
-export default function TEST() {
+export default function Test() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const handleAnswerClick = (index) => {
@@ -24,8 +21,8 @@ export default function TEST() {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(index + 1);
     } else {
-      // 마지막 질문에 답변한 경우 결과 처리 로직 구현
-      // 예: 결과 페이지로 이동
+      const router = useRouter();
+      router.push(`/escape`);
     }
   };
 

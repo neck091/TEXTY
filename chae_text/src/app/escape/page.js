@@ -1,18 +1,12 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import styles from "./game.module.css"; // 스타일 파일 경로는 상황에 맞게 조정해주세요
-import TEST from "../test/page";
-import { redirect } from "next/navigation";
 
-export default function Game() {
+export default function escape() {
   const narrations = [
-    "반갑습니다, 임상 실험에 참여해주신 여러분.",
-    "여러분이 해주실 일은 아주 간단합니다.",
-    "지금부터 제가 드리는 질문지에 답을 해주시기만 하면 됩니다.",
-    "보수는 질문이 다 끝나고 나가실 때 받을 수 있습니다.",
-    "준비는 되셨나요?",
-    "그럼 시작하도록 하죠.",
+    "자, 당신은 넓은 들판의 하늘을 바라보고 있습니다.",
+    "아",
+    "잘못말했습니다. 당신은 꽉 막힌 지하 독방에서 일어납니다.",
     // 여기에 추가 나레이션을 넣을 수 있습니다.
   ];
 
@@ -47,5 +41,10 @@ export default function Game() {
       </div>
     );
   }
-  return redirect(`/test`);
+
+  <div className={styles.gameStart}>
+    return redirect("/test");
+    {/* <TEST /> */}
+    {/* 게임 시작 후의 화면 또는 컴포넌트 */}
+  </div>;
 }
