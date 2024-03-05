@@ -1,18 +1,20 @@
-// api/quest.js
-
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+const DB = new PrismaClient();
 
 const selectAll = async () => {
   try {
-    const quests = await prisma.quizQuestions.findMany();
-    await prisma.$disconnect();
-    return quests;
+    const quest = await DB.tbl_quest.findMany();
+    console.log(quest);
+    await DB.$disconnect();
+    return quest;
   } catch (error) {
-    console.error("Error fetching questions:", error);
-    await prisma.$disconnect();
-    return [];
+    console.log(error);
+    return null;
   }
 };
 
-export { selectAll };
+const createQuest = async (data) => {
+  console.log(data);
+  await DB.tbl_quest.create({ data: data });
+};
+export { createQuest, selectAll };

@@ -1,50 +1,159 @@
+// pages/game.escape.js
+
 "use client";
-import React, { useState, useEffect } from "react";
-import styles from "./game.module.css"; // 스타일 파일 경로는 상황에 맞게 조정해주세요
 
-export default function escape() {
-  const narrations = [
-    "자, 당신은 넓은 들판의 하늘을 바라보고 있습니다.",
-    "아",
-    "잘못말했습니다. 당신은 꽉 막힌 지하 독방에서 일어납니다.",
-    // 여기에 추가 나레이션을 넣을 수 있습니다.
-  ];
+import React, { useState } from "react";
+import styles from "./game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 
-  const [currentNarrationIndex, setCurrentNarrationIndex] =
-    useState(0);
-  const [gameStarted, setGameStarted] = useState(false);
+const scenarios = {
+  start: {
+    description:
+      "깨어난 당신은 넓은 들판의 하늘을 바라보고 있습니다.",
+    options: [
+      {
+        text: "갑자기?",
+        nextScene: "dumy",
+      },
+      {
+        text: "웬 들판?",
+        nextScene: "dumy",
+      },
+      {
+        text: "무슨 소릴 하는거야",
+        nextScene: "dumy",
+      },
+    ],
+  },
+  dumy: {
+    description: "아.",
+    options: [
+      {
+        text: "아?",
+        nextScene: "dumy2",
+      },
+    ],
+  },
+  dumy2: {
+    description:
+      "잘못말했습니다. 당신은 꽉 막힌 지하 독방에서 일어납니다.",
+    options: [
+      {
+        text: "주변을 둘러본다.",
+        nextScene: "cell",
+      },
+    ],
+  },
+  cell: {
+    description: "주변을 둘러본다.",
+    options: [
+      {
+        text: "침대를 본다",
+        nextScene: "bed",
+      },
+      {
+        text: "책상을 본다",
+        nextScene: "desk",
+      },
+      {
+        text: "전화기를 살펴본다",
+        nextScene: "phone",
+      },
+    ],
+  },
+  bed: {
+    description: "푹신푹신한 침대입니다. 아무것도 없네요.",
+    options: [
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  desk: {
+    description:
+      "침대에는 전화 번호가 적힌 종이가 있습니다. '010 - 9462 - 5221'",
+    options: [
+      {
+        text: "종이를 살펴본다",
+        nextScene: "paper",
+      },
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  phone: {
+    description:
+      "붉은 색의 전화기입니다. 입력 할 수 있을 것 같습니다.",
+    options: [
+      {
+        text: "전화를 입력해본다",
+        nextScene: "dial",
+      },
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  paper: {
+    description: "종이를 살펴보니 아무런 정보도 없습니다.",
+    options: [
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  dial: {
+    description: "전화를 입력해본 결과, 전화가 연결되지 않습니다.",
+    options: [
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  error: {
+    description: "올바르지 않은 선택입니다. 다시 시도하세요.",
+    options: [
+      {
+        text: "돌아가기",
+        nextScene: "start",
+      },
+    ],
+  },
+};
 
-  useEffect(() => {
-    function handleKeyDown(event) {
-      if (event.key === "Enter") {
-        const nextIndex = currentNarrationIndex + 1;
-        if (nextIndex < narrations.length) {
-          setCurrentNarrationIndex(nextIndex);
-        } else {
-          setGameStarted(true); // 모든 나레이션이 끝나면 게임 시작
-        }
-      }
-    }
+export default function Game() {
+  const [currentScene, setCurrentScene] = useState("start");
 
-    window.addEventListener("keydown", handleKeyDown);
+  const handleOptionClick = (nextScene) => {
+    setCurrentScene(nextScene);
+  };
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [currentNarrationIndex, narrations.length]);
-
-  if (!gameStarted) {
-    return (
-      <div className={styles.narration}>
-        <p>{narrations[currentNarrationIndex]}</p>
-      </div>
-    );
-  }
-
-  <div className={styles.gameStart}>
-    return redirect("/test");
-    {/* <TEST /> */}
-    {/* 게임 시작 후의 화면 또는 컴포넌트 */}
-  </div>;
+  return (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <header className={styles.title}>
+          <h1>지하 독방</h1>
+        </header>
+        <div className={styles.description}>
+          {scenarios[currentScene].description}
+        </div>
+        <div className={styles.options}>
+          {scenarios[currentScene].options.map((option, index) => (
+            <button
+              key={index}
+              className={styles.optionButton}
+              onClick={() => handleOptionClick(option.nextScene)}
+            >
+              {option.text}
+            </button>
+          ))}
+        </div>
+      </main>
+    </div>
+  );
 }

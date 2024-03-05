@@ -14,8 +14,7 @@ datasource db {
 }
 
 model tbl_quest{
-q_seq	Int @id @default(autoincrement())
-q_quest	String
+q_quest	String @id
 q_answer1	String
 q_answer2	String
 q_answer3	String
