@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./game.module.css"; // 스타일링을 위한 CSS 모듈 파일
+import styles from "../game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 import { useRouter } from "next/navigation";
 import Inventory from "../comps/Inventory";
 
@@ -72,12 +72,21 @@ const scenarios = {
     ],
   },
   desk: {
-    description: "침대에는 전화 번호가 적힌 종이가 있습니다.",
+    description: "책상에는 전화 번호가 적힌 종이가 있습니다.",
     options: [
       {
         text: "종이를 살펴본다",
         nextScene: "paper",
       },
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  desk2: {
+    description: "책상에는 아무것도 없습니다.",
+    options: [
       {
         text: "다시 돌아간다",
         nextScene: "cell",
@@ -104,7 +113,7 @@ const scenarios = {
     options: [
       {
         text: "가져간다",
-        nextScene: "cell",
+        nextScene: "take",
       },
     ],
   },
@@ -133,22 +142,34 @@ export default () => {
   const router = useRouter();
 
   const handleOptionClick = (nextScene) => {
+    // 종이를 가져가는 조건
+    if (nextScene === "take") {
+      setPaperTaken(true); // 종이를 가져감
+      setCurrentScene("cell");
+      return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
+    }
+
+    // 책상을 보는 조건
+    if (nextScene === "desk") {
+      if (paperTaken) {
+        // 종이를 가져갔다면 desk2 씬으로 변경
+        setCurrentScene("desk2");
+      } else {
+        // 종이를 가져가지 않았다면 desk 씬 유지
+        setCurrentScene("desk");
+      }
+      return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
+    }
+
+    // 전화를 입력하는 조건
     if (nextScene === "dial") {
-      router.push("/puzzle1");
-    } else {
-      setCurrentScene(nextScene);
+      router.push("/puzzle1"); // 다이얼 씬으로 이동
+      return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
     }
-  };
 
-  const handleDeskClick = () => {
-    if (currentScene === "cell" && paperTaken) {
-      setCurrentScene("deskEmpty"); // 책상에 종이를 가져갔고, cell 씬에서 클릭했을 때
-    } else {
-      setCurrentScene("desk"); // 기본 책상 씬
-    }
+    // 기타 모든 씬에 대한 처리
+    setCurrentScene(nextScene);
   };
-
-  // 책상을 클릭할 때 호출되는 함수
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -168,9 +189,6 @@ export default () => {
               {option.text}
             </button>
           ))}
-        </div>
-        <div className={styles.desk} onClick={handleDeskClick}>
-          {/* 책상 이미지 */}
         </div>
         <div>
           <Inventory />
