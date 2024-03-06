@@ -19,7 +19,7 @@ export default function Telephone() {
 
   const handleSubmit = () => {
     if (inputValue === "01094625221") {
-      router.push("/escape");
+      router.push("/escape-sub");
     } else {
       alert("전화가 연결되지 않습니다.");
       setInputValue("");

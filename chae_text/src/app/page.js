@@ -12,7 +12,7 @@ export default function Home() {
               <Link href="/game">게임시작</Link> &rarr;
             </h2>
           </button>
-          <button className={styles.card}>
+          <button className={styles.card} name="out">
             <h2>나가기 &rarr;</h2>
           </button>
         </div>

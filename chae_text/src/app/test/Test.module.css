@@ -4,14 +4,15 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
-.main {
-  border: 1px solid black;
+.maina {
+  border: 2px solid #42414d;
   text-align: center;
   width: 30%;
   height: 80%;
+  padding: 5px;
 }
 
 .title {
@@ -26,7 +27,7 @@
   border-radius: 10px;
   width: 90%;
   margin: auto;
-  margin-top: 200px;
+  margin-top: 150px;
   display: flex;
   justify-items: center;
 }
@@ -37,7 +38,7 @@
   border-radius: 10px;
   width: 90%;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .question {
@@ -58,10 +59,10 @@
   background: #ddd;
   border: none;
   padding: 10px;
-  margin-bottom: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
   height: 50px;
+  margin-bottom: 10px;
 }
 
 .answerButton:hover {

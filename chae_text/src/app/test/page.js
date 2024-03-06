@@ -40,11 +40,11 @@ const questions = [
     answers: ["재산", "권력", "명예"],
   },
   {
-    question: "세상엔 없어져야 할 사람이\n있다 생각하나요?",
+    question: "■ ■ ■ ■ ■ 가 \n있다 생각하나요?",
     answers: ["예", "아니오", "예?"],
   },
   {
-    question: "뭔가 새로운 걸 한 번\n해보고 싶지 않나요?",
+    question: "뭔가 새■운 걸 한 번\n해보■ 싶지 ■ ■요?",
     answers: ["예", "아니오", "뭐를?"],
   },
   {
@@ -117,9 +117,9 @@ export default () => {
 
   return (
     <div className={styles.container}>
-      <main className={styles.main}>
+      <main className={styles.maina}>
         <header className={styles.title}>
-          <h1>심리테스트</h1>
+          <h1>설문지</h1>
         </header>
         <div className={`${styles.quizSub} ${styles.dotSeparated}`}>
           <h2 className={styles.question}>
