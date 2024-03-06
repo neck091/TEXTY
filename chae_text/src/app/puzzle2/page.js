@@ -14,7 +14,7 @@ export default function Answer() {
 
   const handleSubmit = () => {
     if (inputValue === "0412") {
-      router.push("/main"); // 정답을 입력하면 /main 페이지로 이동
+      router.push("/escape2"); // 정답을 입력하면 다음 페이지로 이동
     } else {
       alert("번호가 맞지 않습니다.");
     }

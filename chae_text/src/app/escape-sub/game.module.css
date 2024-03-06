@@ -7,9 +7,6 @@
 
 .main {
   padding: 20px;
-  width: 50%;
-  text-align: center;
-  height: 70%;
 }
 
 .title {
@@ -40,7 +37,7 @@
 }
 
 .optionButton:hover {
-  background-color: #0056b3;
+  background-color: #0070f3;
 }
 @keyframes fadeIn {
   0% {
@@ -55,5 +52,5 @@
   /* 기본적으로 화면을 숨깁니다. */
   opacity: 0;
   /* 애니메이션을 15초 동안 실행합니다. */
-  animation: fadeIn 12s forwards;
+  animation: fadeIn 5s forwards;
 }

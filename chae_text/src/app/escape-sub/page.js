@@ -5,42 +5,23 @@
 import React, { useState } from "react";
 import styles from "./game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 import { useRouter } from "next/navigation";
-import Inventory from "../comps/Inventory";
 
 const scenarios = {
   start: {
-    description:
-      "깨어난 당신은 넓은 들판의 하늘을 바라보고 있습니다.",
+    description: "전화음이 연결됩니다. 뚜르르르... 달칵.",
     options: [
       {
-        text: "갑자기?",
-        nextScene: "dumy",
-      },
-      {
-        text: "웬 들판?",
-        nextScene: "dumy",
-      },
-      {
-        text: "무슨 소릴 하는거야",
-        nextScene: "dumy",
+        text: "여보세요?",
+        nextScene: "start2",
       },
     ],
   },
-  dumy: {
-    description: "아.",
-    options: [
-      {
-        text: "아?",
-        nextScene: "dumy2",
-      },
-    ],
-  },
-  dumy2: {
+  start2: {
     description:
-      "잘못말했습니다. 당신은 꽉 막힌 지하 독방에서 일어납니다.",
+      " ' 천장을 확인해 ' 전화 속 상대는 이 말만을 하더니 뚝, 전화를 끊어버립니다.",
     options: [
       {
-        text: "주변을 둘러본다.",
+        text: "뭐야?",
         nextScene: "cell",
       },
     ],
@@ -60,10 +41,14 @@ const scenarios = {
         text: "전화기를 살펴본다",
         nextScene: "phone",
       },
+      {
+        text: "천장을 본다",
+        nextScene: "up",
+      },
     ],
   },
   bed: {
-    description: "푹신푹신한 침대입니다. 아무것도 없네요.",
+    description: "여전히 푹신푹신한 침대입니다. 아무것도 없네요.",
     options: [
       {
         text: "다시 돌아간다",
@@ -72,12 +57,8 @@ const scenarios = {
     ],
   },
   desk: {
-    description: "침대에는 전화 번호가 적힌 종이가 있습니다.",
+    description: "책상 위는 깔끔합니다.",
     options: [
-      {
-        text: "종이를 살펴본다",
-        nextScene: "paper",
-      },
       {
         text: "다시 돌아간다",
         nextScene: "cell",
@@ -85,8 +66,7 @@ const scenarios = {
     ],
   },
   phone: {
-    description:
-      "붉은 색의 전화기입니다. 입력 할 수 있을 것 같습니다.",
+    description: "붉은 색의 전화기입니다. 또 입력 할 필요는 없겠죠?",
     options: [
       {
         text: "전화를 입력해본다",
@@ -99,17 +79,7 @@ const scenarios = {
     ],
   },
   paper: {
-    description:
-      "종이를 살펴보니 숫자가 적혀있습니다. '010 - 9462 - 5221' - 전화해♥ ",
-    options: [
-      {
-        text: "가져간다",
-        nextScene: "cell",
-      },
-    ],
-  },
-  dial: {
-    description: "전화",
+    description: "종이를 살펴보니 아무런 정보도 없습니다.",
     options: [
       {
         text: "다시 돌아간다",
@@ -117,38 +87,40 @@ const scenarios = {
       },
     ],
   },
-  error: {
-    description: "올바르지 않은 선택입니다. 다시 시도하세요.",
+  dial: {
+    description: "다시 누를 필요 없대도요!",
     options: [
       {
-        text: "돌아가기",
-        nextScene: "start",
+        text: "다시 돌아간다",
+        nextScene: "cell",
+      },
+    ],
+  },
+  up: {
+    description: "천장을 보니 달력이 하나 보입니다.",
+    options: [
+      {
+        text: "자세히 본다",
+        nextScene: "go",
+      },
+      {
+        text: "다시 돌아간다",
+        nextScene: "cell",
       },
     ],
   },
 };
 export default () => {
   const [currentScene, setCurrentScene] = useState("start");
-  const [paperTaken, setPaperTaken] = useState(false); // 종이를 가져갔는지 여부를 나타내는 상태
   const router = useRouter();
 
   const handleOptionClick = (nextScene) => {
-    if (nextScene === "dial") {
-      router.push("/puzzle1");
-    } else {
-      setCurrentScene(nextScene);
+    if (nextScene === "go") {
+      router.push("/puzzle2");
     }
+    setCurrentScene(nextScene);
   };
 
-  const handleDeskClick = () => {
-    if (currentScene === "cell" && paperTaken) {
-      setCurrentScene("deskEmpty"); // 책상에 종이를 가져갔고, cell 씬에서 클릭했을 때
-    } else {
-      setCurrentScene("desk"); // 기본 책상 씬
-    }
-  };
-
-  // 책상을 클릭할 때 호출되는 함수
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -156,10 +128,10 @@ export default () => {
           <h1>지하 독방</h1>
         </header>
         <div className={styles.description}>
-          {scenarios[currentScene].description}
+          {scenarios[currentScene]?.description}
         </div>
         <div className={styles.options}>
-          {scenarios[currentScene].options.map((option, index) => (
+          {scenarios[currentScene]?.options.map((option, index) => (
             <button
               key={index}
               className={styles.optionButton}
@@ -168,12 +140,6 @@ export default () => {
               {option.text}
             </button>
           ))}
-        </div>
-        <div className={styles.desk} onClick={handleDeskClick}>
-          {/* 책상 이미지 */}
-        </div>
-        <div>
-          <Inventory />
         </div>
       </main>
     </div>
