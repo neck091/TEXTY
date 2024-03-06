@@ -6,10 +6,7 @@
 }
 
 .main {
-  background-color: #f0f0f0;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .title {
@@ -28,7 +25,8 @@
 }
 
 .optionButton {
-  width: 100%;
+  width: 200px;
+  height: fit-content;
   padding: 10px 20px;
   margin-bottom: 10px;
   background-color: #007bff;
@@ -40,4 +38,19 @@
 
 .optionButton:hover {
   background-color: #0056b3;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.container {
+  /* 기본적으로 화면을 숨깁니다. */
+  opacity: 0;
+  /* 애니메이션을 15초 동안 실행합니다. */
+  animation: fadeIn 12s forwards;
 }
