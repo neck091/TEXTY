@@ -4,6 +4,7 @@
 
 import React, { useState } from "react";
 import styles from "./game.module.css"; // 스타일링을 위한 CSS 모듈 파일
+import { useRouter } from "next/navigation";
 
 const scenarios = {
   start: {
@@ -125,11 +126,14 @@ const scenarios = {
     ],
   },
 };
-
-export default function Game() {
+export default () => {
   const [currentScene, setCurrentScene] = useState("start");
+  const router = useRouter();
 
   const handleOptionClick = (nextScene) => {
+    if (nextScene === "dial") {
+      router.push("/puzzle1");
+    }
     setCurrentScene(nextScene);
   };
 
@@ -156,4 +160,4 @@ export default function Game() {
       </main>
     </div>
   );
-}
+};
