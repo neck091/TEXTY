@@ -3,7 +3,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "../game.module.css"; // 스타일링을 위한 CSS 모듈 파일
+import styles from "./game.module.css";
 import { useRouter } from "next/navigation";
 import Inventory from "../comps/Inventory";
 
