@@ -20,17 +20,20 @@
 }
 
 .quizSub {
+  height: 70px;
   background: #eee;
-  padding: 20px;
+  padding: 10px 16px;
   border-radius: 10px;
   width: 90%;
   margin: auto;
   margin-top: 200px;
+  display: flex;
+  justify-items: center;
 }
 
 .quizCard {
   background: #eee;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   width: 90%;
   margin: auto;
@@ -38,7 +41,12 @@
 }
 
 .question {
-  margin-bottom: 20px;
+  height: 200px;
+  font-size: 18px;
+  text-align: center; /* 텍스트 가운데 정렬 */
+  margin: 0 auto; /* 상하 마진 0, 좌우 마진 자동 */
+  width: 90%; /* 부모 요소에 대해 90%의 너비 */
+  padding: 0 5%; /* 내용물이 경계선에 닿지 않도록 패딩 설정 */
 }
 
 .answers {
@@ -58,4 +66,21 @@
 
 .answerButton:hover {
   background: #ccc;
+}
+
+.dotSeparated {
+  white-space: pre-line;
+}
+
+.hoverEffect {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 50px;
+
+  font-size: 20px;
 }
