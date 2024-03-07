@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { useRouter } from "next/navigation";
 import "./puzzle1.css";
-import Inventory from "../comps/Inventory";
+import Inventory from "../inventory/Inventory";
 
 export default function Telephone() {
   const [inputValue, setInputValue] = useState("");

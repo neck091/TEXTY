@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // redirect 함수 추가
 import "./puzzle2.css";
-import Inventory from "../comps/Inventory";
+import Inventory from "../inventory/Inventory";
 
 export default function Answer() {
   const router = useRouter();

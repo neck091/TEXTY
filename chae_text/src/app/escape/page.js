@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import styles from "./game.module.css";
 import { useRouter } from "next/navigation";
-import Inventory from "../comps/Inventory";
+import Inventory from "../inventory/Inventory";
 
 const scenarios = {
   start: {
