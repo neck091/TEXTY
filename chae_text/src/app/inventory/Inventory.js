@@ -36,26 +36,24 @@ const Inventory = () => {
   }, []);
 
   return (
-    <>
+    <main className="inventory">
       <h2 className="title">인벤토리</h2>
-      <div className="inventory">
-        <main className="main">
-          <ul>
-            {items.map((item, index) => (
-              <li
-                className="item"
-                key={index}
-                onClick={() => handleItemClick(item)}
-              >
-                {item.name}
-              </li>
-            ))}
-          </ul>
-        </main>
-        <section className="item">
+      <div className="item_box">
+        <ul className="items">
+          {items.map((item, index) => (
+            <li
+              className="item"
+              key={index}
+              onClick={() => handleItemClick(item)}
+            >
+              {item.name}
+            </li>
+          ))}
+        </ul>
+        <section className="item_texts">
           {selectedItem && (
             <>
-              <div className="wow">
+              <div className="item_text">
                 {/* <h3>{selectedItem.name}</h3> */}
                 <p>{selectedItem.description}</p>
               </div>
@@ -71,7 +69,7 @@ const Inventory = () => {
           )}
         </section>
       </div>
-    </>
+    </main>
   );
 };
 

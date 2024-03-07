@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-
 import { useRouter } from "next/navigation";
+import Inventory from "../inventory/Inventory";
 import "./puzzle1.css";
-import Inventory from "../comps/Inventory";
 
 export default function Telephone() {
   const [inputValue, setInputValue] = useState("");
@@ -27,9 +26,9 @@ export default function Telephone() {
   };
 
   return (
-    <main>
+    <main className="puzzle1">
       <section className="dial">
-        <div>
+        <div className="nums">
           <button
             className="square"
             onClick={() => handleButtonClick("1")}
@@ -49,7 +48,7 @@ export default function Telephone() {
             　
           </button>
         </div>
-        <div>
+        <div className="nums">
           <button
             className="square"
             onClick={() => handleButtonClick("4")}
@@ -69,7 +68,7 @@ export default function Telephone() {
             　
           </button>
         </div>
-        <div>
+        <div className="nums">
           <button
             className="square"
             onClick={() => handleButtonClick("7")}
@@ -89,7 +88,7 @@ export default function Telephone() {
             　
           </button>
         </div>
-        <div>
+        <div className="nums">
           <button
             className="square"
             onClick={() => handleButtonClick("*")}
@@ -110,10 +109,9 @@ export default function Telephone() {
           </button>
         </div>
       </section>
-      <div className="inputs">
-        <input type="hidden" value={inputValue} readOnly />
+      <div className="puzzle1 inputs">
         <input
-          className="input"
+          className="text_box"
           type="text"
           value={inputValue}
           readOnly
