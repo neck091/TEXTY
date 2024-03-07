@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import styles from "./game.module.css";
 import { useRouter } from "next/navigation";
-import Inventory from "../comps/Inventory";
+import Inventory from "../inventory/Inventory";
 
 const scenarios = {
   start: {
@@ -170,11 +170,15 @@ export default () => {
     // 기타 모든 씬에 대한 처리
     setCurrentScene(nextScene);
   };
+  const title =
+    currentScene === "start" || currentScene === "dumy"
+      ? "넓은 들판"
+      : "지하 독방";
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <header className={styles.title}>
-          <h1>지하 독방</h1>
+          <h1>{title}</h1>
         </header>
         <div className={styles.description}>
           {scenarios[currentScene].description}

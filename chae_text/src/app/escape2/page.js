@@ -1,44 +1,44 @@
-// pages/game.escape.js
-
 "use client";
 
 import React, { useState } from "react";
-import styles from "./game.module.css"; // 스타일링을 위한 CSS 모듈 파일
+import styles from "../styles/game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 import { useRouter } from "next/navigation";
 
 const scenarios = {
   start: {
-    description: "전화음이 연결됩니다. 뚜르르르... 달칵.",
+    description:
+      "당신은 달력을 보고 알아낸 숫자들을 독방 문에 입력해봅니다. 삐리릭- 문은 손쉽게 열렸네요. 문을 열고 밖으로 나가면 위로 이어진 계단이 나옵니다.",
     options: [
       {
-        text: "여보세요?",
+        text: "올라간다",
         nextScene: "start2",
       },
     ],
   },
   start2: {
     description:
-      " ' 천장을 확인해 ' 전화 속 상대는 이 말만을 하더니 뚝, 전화를 끊어버립니다.",
+      "망설임 없이 당신은 계단을 오릅니다. 얼마나 올랐을까, 당신은 바닥에 떨어진 종이를 발견했습니다.",
     options: [
       {
-        text: "뭐야?",
+        text: "줍는다",
         nextScene: "cell",
       },
     ],
   },
   cell: {
-    description: "주변을 둘러본다.",
+    description:
+      "당신은 종이를 줍고 쭉 올라갑니다. 계단의 끝에 다다르면 또다시 문이네요.",
     options: [
       {
-        text: "침대를 본다",
+        text: "",
         nextScene: "bed",
       },
       {
-        text: "책상을 본다",
+        text: "",
         nextScene: "desk",
       },
       {
-        text: "전화기를 살펴본다",
+        text: "",
         nextScene: "phone",
       },
       {
@@ -97,25 +97,10 @@ const scenarios = {
     ],
   },
   up: {
-    description:
-      "천장을 보니 달력이 하나 보입니다. 평범한 달력입니다.",
+    description: "천장을 보니 달력이 하나 보입니다.",
     options: [
       {
         text: "자세히 본다",
-        nextScene: "up2",
-      },
-      {
-        text: "다시 돌아간다",
-        nextScene: "cell",
-      },
-    ],
-  },
-  up2: {
-    description:
-      "평범한 달력입니다... 작게 적혀있는 글자들만 뺀다면 말이죠. 달력 상단엔 ★★비밀번호!!★★ 라는 메모가 있습니다. 독방 문의 비밀번호일까요?",
-    options: [
-      {
-        text: "달력을 들여다본다.",
         nextScene: "go",
       },
       {
