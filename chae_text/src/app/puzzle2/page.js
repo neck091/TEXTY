@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // redirect 함수 추가
+import { useRouter } from "next/navigation";
 import "./puzzle2.css";
 import Inventory from "../inventory/Inventory";
 
@@ -21,8 +21,8 @@ export default function Answer() {
   };
 
   return (
-    <section>
-      <div className="rap">
+    <section className="puzzle2">
+      <div className="calendar">
         <div className="header">
           <h2>2024</h2>
           <h4>04</h4>
@@ -73,7 +73,7 @@ export default function Answer() {
         </div>
       </div>
       <div>
-        <ul className="text">
+        <ul className="hint">
           <li>- 그녀석은 6보다 밑에 있어</li>
           <li>- 10 보다는 오른쪽에 있어</li>
           <li>- 나는 휴일이 싫어.</li>
@@ -81,12 +81,12 @@ export default function Answer() {
           <li>- 나는 3 번째 행보다 밑이 아니야.</li>
         </ul>
       </div>
-      <ul className="text">
+      <ul className="hint">
         <li className="text">* 4자리 숫자로 입력해주세요. *</li>
       </ul>
       <div className="input">
         <input
-          className="input"
+          className="input text_box"
           placeholder="정답을 입력하세요."
           value={inputValue}
           onChange={handleInputChange}
