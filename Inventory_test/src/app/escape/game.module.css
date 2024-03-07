@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main {
+  padding: 20px;
+  width: 50%;
+  text-align: center;
+  height: 70%;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.optionButton {
+  width: 200px;
+  height: fit-content;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.optionButton:hover {
+  background-color: #0056b3;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
