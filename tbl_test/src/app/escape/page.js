@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import styles from "./game.module.css";
 import { useRouter } from "next/navigation";
 import Inventory from "../inventory/Inventory";
+import { createInven } from "@/app/api/inven"; // 올바른 함수 이름 사용
 
 const scenarios = {
   start: {
@@ -132,10 +133,24 @@ export default () => {
   const [paperTaken, setPaperTaken] = useState(false); // 종이를 가져갔는지 여부를 나타내는 상태
   const router = useRouter();
 
-  const handleOptionClick = (nextScene) => {
+  const handleOptionClick = async (nextScene) => {
     // 종이를 가져가는 조건
     if (nextScene === "take") {
       setPaperTaken(true); // 종이를 가져감
+
+      // 인벤토리 아이템 추가 로직 수정 및 실행
+      const invenData = {
+        i_seq: 1,
+        i_item: "종이",
+        i_description: "010-9462-5221 이라고 적혀있다.",
+      };
+
+      try {
+        await createInven(invenData); // 수정된 함수 호출
+      } catch (error) {
+        console.error("인벤토리 아이템 추가 중 오류 발생:", error);
+      }
+
       setCurrentScene("cell");
       return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
     }
