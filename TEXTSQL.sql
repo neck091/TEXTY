@@ -32,6 +32,17 @@ VALUES
 
 SELECT * FROM tbl_quest;
 
-SELECT * FROM tbl_inven;
+SELECT * FROM inventory_items;
 
-DROP TABLE tbl_quest;
+DROP TABLE inventory_items;
+
+CREATE TABLE IF NOT EXISTS inventory_items (
+  id VARCHAR(255) PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  visible BOOLEAN DEFAULT false
+);
+
+-- Insert paper item
+INSERT INTO inventory_items (id, name, description, visible)
+VALUES ('paper', '종이' , '010-9462-5221 이라고 적혀있다.', false);
