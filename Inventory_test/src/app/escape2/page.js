@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styles from "../styles/game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 import { useRouter } from "next/navigation";
+import Inventory from "../inventory/Inventory";
 
 const scenarios = {
   start: {
@@ -21,34 +22,60 @@ const scenarios = {
     options: [
       {
         text: "줍는다",
+        nextScene: "door",
+      },
+    ],
+  },
+  door: {
+    description:
+      "당신은 종이를 줍고 쭉 올라갑니다. 계단의 끝에 다다르면 또 다시 문이네요.",
+    options: [
+      {
+        text: "또?",
+        nextScene: "door2",
+      },
+      {
+        text: "지겹다",
+        nextScene: "door2",
+      },
+    ],
+  },
+
+  door2: {
+    description:
+      "너무 그러지 마세요. 이 문은 잠겨있지 않습니다. 그냥 열고 가시면 됩니다.",
+    options: [
+      {
+        text: "... (문을 연다)",
+        nextScene: "room",
+      },
+    ],
+  },
+  room: {
+    description:
+      "문을 열자 사면이 하얀 방이 보입니다. 방 한가운데는 동그란 탁자만이 자리하고 있습니다. 둘러보는게 좋겠어요.",
+    options: [
+      {
+        text: "둘러본다",
         nextScene: "cell",
       },
     ],
   },
   cell: {
-    description:
-      "당신은 종이를 줍고 쭉 올라갑니다. 계단의 끝에 다다르면 또다시 문이네요.",
+    description: "주변을 둘러본다.",
     options: [
       {
-        text: "",
-        nextScene: "bed",
+        text: "벽",
+        nextScene: "wall",
       },
       {
-        text: "",
+        text: "탁자",
         nextScene: "desk",
-      },
-      {
-        text: "",
-        nextScene: "phone",
-      },
-      {
-        text: "천장을 본다",
-        nextScene: "up",
       },
     ],
   },
-  bed: {
-    description: "여전히 푹신푹신한 침대입니다. 아무것도 없네요.",
+  wall: {
+    description: "그냥 벽입니다. 사방이 벽으로 꽉 막혀있습니다.",
     options: [
       {
         text: "다시 돌아간다",
@@ -57,54 +84,15 @@ const scenarios = {
     ],
   },
   desk: {
-    description: "책상 위는 깔끔합니다.",
-    options: [
-      {
-        text: "다시 돌아간다",
-        nextScene: "cell",
-      },
-    ],
-  },
-  phone: {
-    description: "붉은 색의 전화기입니다. 또 입력 할 필요는 없겠죠?",
-    options: [
-      {
-        text: "전화를 입력해본다",
-        nextScene: "dial",
-      },
-      {
-        text: "다시 돌아간다",
-        nextScene: "cell",
-      },
-    ],
-  },
-  paper: {
-    description: "종이를 살펴보니 아무런 정보도 없습니다.",
-    options: [
-      {
-        text: "다시 돌아간다",
-        nextScene: "cell",
-      },
-    ],
-  },
-  dial: {
-    description: "다시 누를 필요 없대도요!",
-    options: [
-      {
-        text: "다시 돌아간다",
-        nextScene: "cell",
-      },
-    ],
-  },
-  up: {
-    description: "천장을 보니 달력이 하나 보입니다.",
+    description:
+      "둥그런 탁자. 탁자 위에는 작은 찻잔 세트와 함께 작은 쪽지가 하나 남겨져 있습니다. ",
     options: [
       {
         text: "자세히 본다",
-        nextScene: "go",
+        nextScene: "cup",
       },
       {
-        text: "다시 돌아간다",
+        text: "다시 돌아간다.",
         nextScene: "cell",
       },
     ],
@@ -115,8 +103,8 @@ export default () => {
   const router = useRouter();
 
   const handleOptionClick = (nextScene) => {
-    if (nextScene === "go") {
-      router.push("/puzzle2");
+    if (nextScene === "cup") {
+      router.push("/puzzle3");
     }
     setCurrentScene(nextScene);
   };
@@ -125,7 +113,7 @@ export default () => {
     <div className={styles.container}>
       <main className={styles.main}>
         <header className={styles.title}>
-          <h1>지하 독방</h1>
+          <h1>하얀 방</h1>
         </header>
         <div className={styles.description}>
           {scenarios[currentScene]?.description}
@@ -140,6 +128,9 @@ export default () => {
               {option.text}
             </button>
           ))}
+        </div>
+        <div>
+          <Inventory />
         </div>
       </main>
     </div>

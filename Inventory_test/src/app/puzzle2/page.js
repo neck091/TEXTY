@@ -19,9 +19,18 @@ export default function Answer() {
       alert("번호가 맞지 않습니다.");
     }
   };
+  const handleGoBack = () => {
+    router.push("/escape-sub");
+  };
 
   return (
     <section className="puzzle2">
+      <input
+        className="back-button"
+        type="button"
+        value="뒤로가기"
+        onClick={handleGoBack}
+      />
       <div className="calendar">
         <div className="header">
           <h2>2024</h2>

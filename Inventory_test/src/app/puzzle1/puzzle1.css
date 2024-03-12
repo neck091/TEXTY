@@ -1,6 +1,15 @@
 main.puzzle1 {
   width: 50%;
   margin: 0 auto;
+  .button {
+    background-color: transparent;
+    border: 1px solid black;
+    font-weight: bold;
+    color: #0070f3;
+    flex: 1;
+    border-radius: 10px;
+    padding: 5px;
+  }
 }
 
 section.dial {
