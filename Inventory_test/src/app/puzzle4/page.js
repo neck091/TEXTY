@@ -77,7 +77,9 @@ function TimeAttackGame() {
       {gameOver ? (
         <div>
           <h2>게임 종료!</h2>
-          <button onClick={restartGame}>다시 시작</button>
+          <button className="restartGame" onClick={restartGame}>
+            다시 시작
+          </button>
         </div>
       ) : (
         <>

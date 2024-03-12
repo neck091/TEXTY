@@ -25,8 +25,18 @@ export default function Telephone() {
     }
   };
 
+  const handleGoBack = () => {
+    router.push("/escape");
+  };
+
   return (
     <main className="puzzle1">
+      <input
+        className="button"
+        type="button"
+        value="뒤로가기"
+        onClick={handleGoBack}
+      />
       <section className="dial">
         <div className="nums">
           <button
