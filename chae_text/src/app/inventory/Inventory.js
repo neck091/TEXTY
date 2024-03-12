@@ -4,24 +4,25 @@ import "./Inventory.css";
 const Inventory = () => {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-
-  // 인벤토리 아이템 조회 함수
-  const fetchInventory = async () => {
-    const response = await fetch("/api/inventory");
-    const data = await response.json();
-    setItems(data);
-  };
-
   useEffect(() => {
-    fetchInventory();
+    const updateInventory = () => {
+      const storedItems =
+        JSON.parse(localStorage.getItem("inventory")) || [];
+      setItems(storedItems);
+    };
+
+    // 로컬 스토리지에 변화가 있을 때마다 인벤토리를 업데이트하고 싶지만,
+    // 직접적인 이벤트 리스너를 설정할 수는 없으므로, 다른 방법을 모색해야 합니다.
+    updateInventory();
+
+    // 예를 들어, 아이템 추가 로직을 호출하는 컴포넌트에서 이벤트를 발생시키고,
+    // 여기에서 해당 이벤트를 감지하여 `updateInventory`를 호출할 수 있습니다.
   }, []);
 
-  // 아이템 클릭 이벤트 핸들러
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
 
-  // 상세 정보 닫기 이벤트 핸들러
   const handleCloseDetail = () => {
     setSelectedItem(null);
   };

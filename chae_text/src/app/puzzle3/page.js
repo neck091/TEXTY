@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./puzzle3.css"; // 스타일 파일
+import { useRouter } from "next/navigation";
 
 export default function CupPuzzle() {
   const [cups, setCups] = useState([
@@ -10,12 +11,14 @@ export default function CupPuzzle() {
   ]);
   const [selectedCup, setSelectedCup] = useState(null);
 
+  const router = useRouter();
   useEffect(() => {
     const allEqual = cups.every(
       (cup) => Math.abs(cup.volume - cups[0].volume) < 0.01
     );
     if (allEqual && cups.length > 0) {
-      alert("쿵. 어디선가 큰 소리가 들렸는데?");
+      alert("쿵. 어디선가 큰 소리가 들렸는데? 살펴봐야겠다.");
+      router.push("/escape2-sub");
     }
   }, [cups]);
 

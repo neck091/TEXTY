@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import styles from "./game.module.css";
 import { useRouter } from "next/navigation";
 import Inventory from "../inventory/Inventory";
-import { obtainItem } from "../api/visible";
 
 const scenarios = {
   start: {
@@ -133,15 +132,25 @@ export default () => {
   const [paperTaken, setPaperTaken] = useState(false); // 종이를 가져갔는지 여부를 나타내는 상태
   const router = useRouter();
 
-  const handleOptionClick = async (nextScene) => {
+  const handleOptionClick = (nextScene) => {
     // 종이를 가져가는 조건
     if (nextScene === "take") {
       setPaperTaken(true); // 종이를 가져감
-      try {
-        await obtainItem("paper");
-      } catch (error) {
-        console.error("Error obtaining item:", error);
-      }
+
+      const newItem = {
+        name: "종이",
+        description: "010-9462-5221 이라고 적혀있다.",
+      };
+      const inventoryItems =
+        JSON.parse(localStorage.getItem("inventory")) || [];
+      inventoryItems.push(newItem);
+      localStorage.setItem(
+        "inventory",
+        JSON.stringify(inventoryItems)
+      );
+
+      // 여기에서 인벤토리 컴포넌트의 상태를 업데이트하는 이벤트를 발생시키거나,
+      // 인벤토리 상태 관리를 위한 전역 상태 관리 솔루션(예: Context API, Redux)의 상태를 업데이트할 수 있습니다.
       setCurrentScene("cell");
       return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
     }

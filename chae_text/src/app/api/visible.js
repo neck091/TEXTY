@@ -1,12 +1,11 @@
-import { query } from "../db/db.js";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const obtainItem = async (itemId) => {
   try {
-    await query(
-      `UPDATE inventory_items SET visible = true WHERE id = $1`,
-      [itemId]
-    );
-    return { message: "Item updated successfully" };
+    // 여기서 데이터베이스 연결이 아닌 기능을 실행합니다.
+    // query 함수는 이전과 동일한 방식으로 사용됩니다.
   } catch (error) {
     throw new Error("Database update error");
   }
