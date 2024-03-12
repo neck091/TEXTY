@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 import { useRouter } from "next/navigation";
 import Inventory from "../inventory/Inventory";
@@ -18,20 +18,20 @@ const scenarios = {
   },
   start2: {
     description:
-      "망설임 없이 당신은 계단을 오릅니다. 얼마나 올랐을까, 당신은 바닥에 떨어진 종이를 발견했습니다.",
+      "망설임 없이 당신은 계단을 오릅니다. ",
     options: [
       {
-        text: "줍는다",
+        text: "...",
         nextScene: "door",
       },
     ],
   },
   door: {
     description:
-      "당신은 종이를 줍고 쭉 올라갑니다. 계단의 끝에 다다르면 또 다시 문이네요.",
+      "얼마나 올랐을까, 계단의 끝에 다다르면 또 다시 문이네요.",
     options: [
       {
-        text: "또?",
+        text: "또야?",
         nextScene: "door2",
       },
       {
@@ -43,7 +43,7 @@ const scenarios = {
 
   door2: {
     description:
-      "너무 그러지 마세요. 이 문은 잠겨있지 않습니다. 그냥 열고 가시면 됩니다.",
+      "너무 그러지 마세요 이 문은 잠겨있지 않습니다. 그냥 열고 가시면 됩니다.",
     options: [
       {
         text: "... (문을 연다)",
@@ -101,6 +101,7 @@ const scenarios = {
 export default () => {
   const [currentScene, setCurrentScene] = useState("start");
   const router = useRouter();
+  
 
   const handleOptionClick = (nextScene) => {
     if (nextScene === "cup") {
@@ -109,11 +110,18 @@ export default () => {
     setCurrentScene(nextScene);
   };
 
+  const title =
+  currentScene.startsWith("start") || currentScene.startsWith("door")
+    ? "계단"
+    : "하얀 방";
+
+
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <header className={styles.title}>
-          <h1>하얀 방</h1>
+          <h1>{title}</h1>
         </header>
         <div className={styles.description}>
           {scenarios[currentScene]?.description}

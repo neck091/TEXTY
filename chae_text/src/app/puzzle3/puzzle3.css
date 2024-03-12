@@ -10,6 +10,10 @@
   gap: 20px; /* 컵들 사이의 간격 조절 */
 }
 
+h1{
+  margin-top: 80px;
+}
+
 .cup {
   width: 130px;
   height: 150px;

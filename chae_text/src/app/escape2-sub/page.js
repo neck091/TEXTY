@@ -33,11 +33,37 @@ const scenarios = {
     ],
   },
   wall2: {
-    description: "사람 하나가 들어갈 수 있을 정도의 통로.",
+    description: "벽에는 구멍이 나있습니다. 안을 보니 버튼 하나가 보이네요.",
     options: [
       {
-        text: "들어가자.",
-        nextScene: "vent",
+        text: "누른다.",
+        nextScene: "wall3",
+      },
+    ],
+  },
+  wall3: {
+    description: "버튼을 누르자 벽이 열리고 사이렌이 울립니다.",
+    options: [
+      {
+        text: "뭐...뭐야?",
+        nextScene: "wall4",
+      },
+    ],
+  },
+  wall4: {
+    description: "달리세요!",
+    options: [
+      {
+        text: "달린다",
+        nextScene: "run",
+      },
+      {
+        text: "달린다",
+        nextScene: "run",
+      },
+      {
+        text: "달린다",
+        nextScene: "run",
       },
     ],
   },
@@ -56,7 +82,7 @@ export default () => {
   const router = useRouter();
 
   const handleOptionClick = (nextScene) => {
-    if (nextScene === "vent") {
+    if (nextScene === "run") {
       router.push("/puzzle4");
     }
     setCurrentScene(nextScene);

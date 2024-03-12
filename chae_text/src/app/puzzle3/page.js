@@ -58,7 +58,7 @@ export default function CupPuzzle() {
 
   return (
     <div className="cup-puzzle">
-      <h1>컵 비율 맞추기 퍼즐</h1>
+      <h1>컵들의 비율을 맞춰야 할 것 같다.</h1>
       <div className="cups-container">
         {cups.map((cup) => (
           <div
