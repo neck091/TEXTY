@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./Test.module.css";
-// import { selectAll } from "../api/quest.js";
 
 const questions = [
   {
