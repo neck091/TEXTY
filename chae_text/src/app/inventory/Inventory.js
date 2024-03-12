@@ -5,69 +5,56 @@ const Inventory = () => {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
+  // 인벤토리 아이템 조회 함수
+  const fetchInventory = async () => {
+    const response = await fetch("/api/inventory");
+    const data = await response.json();
+    setItems(data);
+  };
+
   useEffect(() => {
-    const storedItems =
-      JSON.parse(localStorage.getItem("inventory")) || [];
-    setItems(storedItems);
+    fetchInventory();
   }, []);
 
+  // 아이템 클릭 이벤트 핸들러
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };
 
+  // 상세 정보 닫기 이벤트 핸들러
   const handleCloseDetail = () => {
     setSelectedItem(null);
   };
-
-  // "종이"와 "라이터" 아이템을 임시로 추가
-  useEffect(() => {
-    const tempItems = [
-      {
-        name: "종이",
-        description: "010-9462-5221 이라고 적혀있다.",
-      },
-      {
-        name: "라이터",
-        description: "불을 피우는데 사용된다.",
-      },
-    ];
-    localStorage.setItem("inventory", JSON.stringify(tempItems));
-    setItems(tempItems);
-  }, []);
 
   return (
     <main className="inventory">
       <h2 className="title">인벤토리</h2>
       <div className="item_box">
-        <ul className="items">
-          {items.map((item, index) => (
-            <li
-              className="item"
-              key={index}
-              onClick={() => handleItemClick(item)}
-            >
-              {item.name}
-            </li>
-          ))}
-        </ul>
-        <section className="item_texts">
-          {selectedItem && (
+        {items.length > 0 && (
+          <ul className="items">
+            {items.map((item, index) => (
+              <li
+                className="item"
+                key={index}
+                onClick={() => handleItemClick(item)}
+              >
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        )}
+        {selectedItem && (
+          <section className="item_texts">
             <>
               <div className="item_text">
-                {/* <h3>{selectedItem.name}</h3> */}
                 <p>{selectedItem.description}</p>
               </div>
-              <div>
-                <button
-                  className="cancel"
-                  onClick={handleCloseDetail}
-                >
-                  x
-                </button>
-              </div>
+              <button className="cancel" onClick={handleCloseDetail}>
+                x
+              </button>
             </>
-          )}
-        </section>
+          </section>
+        )}
       </div>
     </main>
   );

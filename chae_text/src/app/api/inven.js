@@ -1,19 +1,18 @@
-import { PrismaClient } from "@prisma/client";
-const DB = new PrismaClient();
+import { query } from "../db/db.js";
 
-const selectAll = async () => {
-  try {
-    const inven = await DB.tbl_inven.findMany();
-    await DB.$disconnect();
-    return inven;
-  } catch (error) {
-    console.log(error);
-    return null;
+export default handler = async (req, res) => {
+  if (req.method === "GET") {
+    try {
+      const results = await query(
+        "SELECT * FROM inventory_items WHERE visible = true"
+      );
+      res.status(200).json(results.rows);
+    } catch (error) {
+      res.status(500).json({ error: "Database connection error" });
+    }
+  } else {
+    // 다른 HTTP 메소드 처리 (POST, PUT 등)
+    res.setHeader("Allow", ["GET"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
-
-const createInven = async (data) => {
-  console.log(data);
-  await DB.tbl_inven.create({ data: data });
-};
-export { createInven, selectAll };

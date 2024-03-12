@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import styles from "./game.module.css";
 import { useRouter } from "next/navigation";
 import Inventory from "../inventory/Inventory";
+import { obtainItem } from "../api/visible";
 
 const scenarios = {
   start: {
@@ -132,10 +133,15 @@ export default () => {
   const [paperTaken, setPaperTaken] = useState(false); // 종이를 가져갔는지 여부를 나타내는 상태
   const router = useRouter();
 
-  const handleOptionClick = (nextScene) => {
+  const handleOptionClick = async (nextScene) => {
     // 종이를 가져가는 조건
     if (nextScene === "take") {
       setPaperTaken(true); // 종이를 가져감
+      try {
+        await obtainItem("paper");
+      } catch (error) {
+        console.error("Error obtaining item:", error);
+      }
       setCurrentScene("cell");
       return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
     }
