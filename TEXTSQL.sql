@@ -30,7 +30,7 @@ VALUES
 ('아주 좋아요! 당신이 그렇게 말할 줄 알고 있었어요.', '...', '...', '...'),
 ('저희는 당신의 협력에 늘 감사드릴겁니다. 행운을 빌어요!', '...', '...', '...');
 
-SELECT * FROM tbl_quest;
+SELECT * FROM inventory_items;
 
 SELECT * FROM inventory_items;
 
@@ -45,4 +45,4 @@ CREATE TABLE IF NOT EXISTS inventory_items (
 
 -- Insert paper item
 INSERT INTO inventory_items (id, name, description, visible)
-VALUES ('paper', '종이' , '010-9462-5221 이라고 적혀있다.', false);
+VALUES ('paper', '종이' , '010-9462-5221 이라고 적혀있다.', true);

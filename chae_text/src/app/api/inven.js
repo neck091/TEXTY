@@ -1,12 +1,16 @@
-import { query } from "../db/db.js";
+import { PrismaClient } from "@prisma/client";
 
-export default handler = async (req, res) => {
+const prisma = new PrismaClient();
+
+export default async (req, res) => {
   if (req.method === "GET") {
     try {
-      const results = await query(
-        "SELECT * FROM inventory_items WHERE visible = true"
-      );
-      res.status(200).json(results.rows);
+      const results = await prisma.inventory_items.findMany({
+        where: {
+          visible: true,
+        },
+      });
+      res.status(200).json(results);
     } catch (error) {
       res.status(500).json({ error: "Database connection error" });
     }

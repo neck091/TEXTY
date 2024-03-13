@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./puzzle3.css"; // 스타일 파일
+import { useRouter } from "next/navigation";
 
 export default function CupPuzzle() {
   const [cups, setCups] = useState([
@@ -10,12 +11,14 @@ export default function CupPuzzle() {
   ]);
   const [selectedCup, setSelectedCup] = useState(null);
 
+  const router = useRouter();
   useEffect(() => {
     const allEqual = cups.every(
       (cup) => Math.abs(cup.volume - cups[0].volume) < 0.01
     );
     if (allEqual && cups.length > 0) {
-      alert("쿵. 어디선가 큰 소리가 들렸는데?");
+      alert("쿵. 어디선가 큰 소리가 들렸는데? 살펴봐야겠다.");
+      router.push("/escape2-sub");
     }
   }, [cups]);
 
@@ -55,7 +58,7 @@ export default function CupPuzzle() {
 
   return (
     <div className="cup-puzzle">
-      <h1>컵 비율 맞추기 퍼즐</h1>
+      <h1>컵들의 비율을 맞춰야 할 것 같다.</h1>
       <div className="cups-container">
         {cups.map((cup) => (
           <div
