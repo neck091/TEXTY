@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Inventory from "../inventory/Inventory";
 import "./puzzle1.css";
 
-export default function Telephone() {
+export default function puzzle1() {
   const [inputValue, setInputValue] = useState("");
   const router = useRouter();
 
@@ -25,18 +25,8 @@ export default function Telephone() {
     }
   };
 
-  const handleGoBack = () => {
-    router.push("/escape");
-  };
-
   return (
     <main className="puzzle1">
-      <input
-        className="button"
-        type="button"
-        value="뒤로가기"
-        onClick={handleGoBack}
-      />
       <section className="dial">
         <div className="nums">
           <button

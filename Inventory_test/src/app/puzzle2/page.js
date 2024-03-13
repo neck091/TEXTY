@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import "./puzzle2.css";
 import Inventory from "../inventory/Inventory";
 
-export default function Answer() {
+export default function puzzle2() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
 
@@ -19,18 +19,9 @@ export default function Answer() {
       alert("번호가 맞지 않습니다.");
     }
   };
-  const handleGoBack = () => {
-    router.push("/escape-sub");
-  };
 
   return (
     <section className="puzzle2">
-      <input
-        className="back-button"
-        type="button"
-        value="뒤로가기"
-        onClick={handleGoBack}
-      />
       <div className="calendar">
         <div className="header">
           <h2>2024</h2>
