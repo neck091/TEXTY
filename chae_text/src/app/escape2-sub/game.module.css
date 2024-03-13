@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .main {
@@ -46,18 +47,26 @@
 .optionButton:hover {
   background-color: #0056b3;
 }
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
+@keyframes shake {
+  0%,
   100% {
-    opacity: 1;
+    transform: translate(0, 0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate(-5px, -5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate(5px, 5px);
   }
 }
 
-.container {
-  /* 기본적으로 화면을 숨깁니다. */
-  opacity: 0;
-  /* 애니메이션을 5초 동안 실행합니다. */
-  animation: fadeIn 5s forwards;
+.shakeAnimation {
+  animation: shake 1.5s infinite ease-in-out;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "../styles/game.module.css"; // 스타일링을 위한 CSS 모듈 파일
+import styles from "./game.module.css"; // 스타일링을 위한 CSS 모듈 파일
 import { useRouter } from "next/navigation";
 import Inventory from "../inventory/Inventory";
 
@@ -33,7 +33,8 @@ const scenarios = {
     ],
   },
   wall2: {
-    description: "벽에는 구멍이 나있습니다. 안을 보니 버튼 하나가 보이네요.",
+    description:
+      "벽에는 구멍이 나있습니다. 안을 보니 버튼 하나가 보이네요.",
     options: [
       {
         text: "누른다.",
@@ -79,9 +80,14 @@ const scenarios = {
 };
 export default () => {
   const [currentScene, setCurrentScene] = useState("cell");
+  const [isShaking, setIsShaking] = useState(false); // 애니메이션 상태 추가
   const router = useRouter();
 
   const handleOptionClick = (nextScene) => {
+    if (nextScene === "wall3") {
+      setIsShaking(true); // 버튼을 눌렀을 때 애니메이션 시작
+      setTimeout(() => setIsShaking(false), 10000); // 애니메이션 지속 시간 후에 상태 초기화
+    }
     if (nextScene === "run") {
       router.push("/puzzle4");
     }
@@ -89,7 +95,11 @@ export default () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        isShaking ? styles.shakeAnimation : ""
+      }`}
+    >
       <main className={styles.main}>
         <header className={styles.title}>
           <h1>하얀 방</h1>

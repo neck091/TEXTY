@@ -68,34 +68,21 @@ const questions = [
 export default () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(-1);
+  const [userName, setUserName] = useState(""); // 사용자 이름을 저장할 상태 추가
   const router = useRouter();
 
-  // const [questions, setQuestions] = useState([]);
-  // console.log("TEST");
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       console.log("SELECT");
-  //       const questList = await selectAll();
-  //       console.log(questList);
-  //       if (questList) {
-  //         const result = questList.map((item) => ({
-  //           question: `${item.q_quest}`,
-  //           answers: [
-  //             `${item.q_answer1}`,
-  //             `${item.q_answer2}`,
-  //             `${item.q_answer3}`,
-  //           ],
-  //         }));
-  //         setQuestions([...result]);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching questions:", error);
-  //       setQuestions([]);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    // 로컬 스토리지에서 사용자 이름 가져오기
+    const storedName = localStorage.getItem("userName");
+    if (storedName) {
+      setUserName(storedName);
+    }
+
+    // 질문이 모든 질문을 넘어서면 escape 페이지로 이동
+    if (currentQuestionIndex >= questions.length) {
+      router.push("/escape");
+    }
+  }, [currentQuestionIndex, questions.length, router]);
 
   const handleAnswerClick = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -111,18 +98,27 @@ export default () => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
-  useEffect(() => {
-    if (currentQuestionIndex >= questions.length) {
-      router.push("/escape");
-    }
-  }, [currentQuestionIndex, questions.length, router]);
-
   return (
+    // const questList = await selectAll();
+    // const questions = questList.map((item) => ({
+    // seq: `${item.q_seq}`,
+    // question: `${item.q_quest}`,
+    // answers: [
+    // `${item.q_answer1}`,
+    // `${item.q_answer2}`,
+    // `${item.q_answer3}`,
+    // ],
+    // }));
     <div className={styles.container}>
       <main className={styles.maina}>
         <header className={styles.title}>
           <h1>설문지</h1>
         </header>
+        {userName && ( // 사용자 이름이 있으면 표시
+          <div className={styles.userName}>
+            <h2>피실험자 : {userName}</h2>
+          </div>
+        )}
         <div className={`${styles.quizSub} ${styles.dotSeparated}`}>
           <h2 className={styles.question}>
             {currentQuestion && currentQuestion.question}{" "}

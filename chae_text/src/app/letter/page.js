@@ -1,58 +1,72 @@
 "use client";
-import Inventory from "../inventory/Inventory";
+
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import "./puzzle3.css";
 
 export default () => {
   const router = useRouter();
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    // 로컬 스토리지에서 사용자 이름 가져오기
+    const storedName = localStorage.getItem("userName");
+    if (storedName) {
+      setUserName(storedName);
+    }
+  }, [router]);
   const buttonHandler = () => {
-    router.push("/escape2");
+    router.push("/ending");
   };
+
   return (
     <div className="puzzle3">
       <section className="letter">
-        <h3>존경하는 플레이어,</h3>
+        <h3>존경하는 {userName},</h3>
+        <br />
         <p className="text">
           부디 당신이 이 글을 읽기 바라며... 놀라셨나요?
         </p>
+        <br />
         <p className="text">
-          이건 저희가 준비한 테스트 중 하나입니다.
+          현재 이 실험은 피실험자의 뇌파 반응을 연구하며 꿈이라는
+          공간을 확장하여 사용자가 원하는 꿈을 보여준다는 의의를 가진
+          채로 진행하던 실험이었습니다.
+        </p>
+        <br />
+        <p className="text">
+          하지만 실험 도중 저희가 발견하지 못한 오류가 발생하였고,
+          현재 당신은 가사상태에서 깨어나지 못하고 있습니다.
+        </p>
+        <br />
+        <p className="text">
+          저희는 최선을 다해 당신을 현실 세계로 돌려보내기 위해
+          노력하고 있다는 사실을 전하고 싶습니다.
           <br />
-          우리는 당신의 참여에 감사드리며, 저희는 항상 문제발생을
-          대비하여 당신을 모니터링 하고 있고 그에 대한 기록을 하고
-          있습니다.
+          이제와서 밝힌다고 생각하실 수 있겠지만, 아닙니다.
         </p>
         <p className="text">
-          또한, 당신이 이 테스트에서 탈출하지 못한다고 해서 걱정하지
-          마십시오.
-          <br />
-          이건 실험의 한 부분이며, 언제든지 현실로 돌아갈 수 있습니다.
+          끊임없이 저희 연구진은 당신에게 이 사실을 알리고 있으나,
+          어째선지 계속하여 이 사실을 잊고 어떠한 실험 이라는 것을
+          반복하고 있습니다.
         </p>
+        <br />
         <p className="text">
-          당신은 안전하며, 이 실험은 아무런 문제가 없었음을 다시 한번
-          알려드립니다.
+          이게 마지막이길 바라지만, 아마 아니겠죠.
           <br />
-          우리는 당신을 통해 새로운 정보를 얻고 이로 더 나은 세계를
-          만들려 합니다.
+          <br />
+          저희는 마지막까지 당신의 복귀를 위해 노력할 것입니다.
+          <br />
+          당신에게 행운이 있기를...
         </p>
-        <p className="text">이 실험에 참여해 주셔서 감사합니다.</p>
-        <p className="text hidden">
-          이런 말씀을 드리게 되어 죄송합니다.
-          <br />
-          현재 이 공간은 당신의 뇌파를 이용해 만든 공간입니다.
-          <br />
-          그 안에서 많은 시간이 지났지만 저희 연구진은 당신을 현실로
-          돌려보내기 위해 최선을 다하고 있으니 너무 걱정하지
-          말아주셨으면 합니다.
-          <br />
-          저희를 믿고 기다려 주세요.
-        </p>
+        <br />
+        <br />
+        <br />
+
         <button className="button" onClick={buttonHandler}>
           {" "}
           다음&#8811;{" "}
         </button>
       </section>
-      <Inventory />
     </div>
   );
 };

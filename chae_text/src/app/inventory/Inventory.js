@@ -11,14 +11,17 @@ const Inventory = () => {
       setItems(storedItems);
     };
 
-    // 로컬 스토리지에 변화가 있을 때마다 인벤토리를 업데이트하고 싶지만,
-    // 직접적인 이벤트 리스너를 설정할 수는 없으므로, 다른 방법을 모색해야 합니다.
+    // 이벤트 리스너 등록
+    window.addEventListener("inventoryUpdate", updateInventory);
+
+    // 초기 인벤토리 업데이트
     updateInventory();
 
-    // 예를 들어, 아이템 추가 로직을 호출하는 컴포넌트에서 이벤트를 발생시키고,
-    // 여기에서 해당 이벤트를 감지하여 `updateInventory`를 호출할 수 있습니다.
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("inventoryUpdate", updateInventory);
+    };
   }, []);
-
   const handleItemClick = (item) => {
     setSelectedItem(item);
   };

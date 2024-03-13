@@ -17,8 +17,7 @@ const scenarios = {
     ],
   },
   start2: {
-    description:
-      "망설임 없이 당신은 계단을 오릅니다. ",
+    description: "망설임 없이 당신은 계단을 오릅니다. ",
     options: [
       {
         text: "...",
@@ -88,7 +87,11 @@ const scenarios = {
       "둥그런 탁자. 탁자 위에는 작은 찻잔 세트와 함께 작은 쪽지가 하나 남겨져 있습니다. ",
     options: [
       {
-        text: "자세히 본다",
+        text: "쪽지",
+        nextScene: "memo",
+      },
+      {
+        text: "컵",
         nextScene: "cup",
       },
       {
@@ -97,13 +100,73 @@ const scenarios = {
       },
     ],
   },
+  desk2: {
+    description:
+      "둥그런 탁자. 탁자 위에는 작은 찻잔 세트가 있습니다. ",
+    options: [
+      {
+        text: "컵",
+        nextScene: "cup",
+      },
+      {
+        text: "다시 돌아간다.",
+        nextScene: "cell",
+      },
+    ],
+  },
+  memo: {
+    description:
+      "*갑자기 이런 부탁 미안한데, 내가 일이 생겨서 말이야... 분배 좀 대신 해줄 수 있어?\n꼭!! 정확히 같은 비율이어야 해. 해줄거지? 고마워! 나중에 갚을게*\n..이라는 내용의 쪽지입니다.",
+    options: [
+      {
+        text: "가져간다",
+        nextScene: "take",
+      },
+    ],
+  },
 };
 export default () => {
   const [currentScene, setCurrentScene] = useState("start");
+  const [paperTaken, setPaperTaken] = useState(false); // 종이를 가져갔는지 여부를 나타내는 상태
   const router = useRouter();
-  
 
   const handleOptionClick = (nextScene) => {
+    // 종이를 가져가는 조건
+    if (nextScene === "take") {
+      setPaperTaken(true); // 종이를 가져감
+
+      const newItem = {
+        name: "쪽지",
+        description:
+          "*정말 미안! 고마워! 컵은 옆에 있으니까 편하게 해!!*",
+      };
+      const inventoryItems =
+        JSON.parse(localStorage.getItem("inventory")) || [];
+      inventoryItems.push(newItem);
+      localStorage.setItem(
+        "inventory",
+        JSON.stringify(inventoryItems)
+      );
+      window.dispatchEvent(new CustomEvent("inventoryUpdate"));
+
+      // 여기에서 인벤토리 컴포넌트의 상태를 업데이트하는 이벤트를 발생시키거나,
+      // 인벤토리 상태 관리를 위한 전역 상태 관리 솔루션(예: Context API, Redux)의 상태를 업데이트할 수 있습니다.
+      setCurrentScene("desk2");
+      return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
+    }
+
+    // 책상을 보는 조건
+    if (nextScene === "desk") {
+      if (paperTaken) {
+        // 종이를 가져갔다면 desk2 씬으로 변경
+        setCurrentScene("desk2");
+      } else {
+        // 종이를 가져가지 않았다면 desk 씬 유지
+        setCurrentScene("desk");
+      }
+      return; // 추가 처리를 방지하기 위해 여기서 함수 실행 종료
+    }
+
     if (nextScene === "cup") {
       router.push("/puzzle3");
     }
@@ -111,11 +174,10 @@ export default () => {
   };
 
   const title =
-  currentScene.startsWith("start") || currentScene.startsWith("door")
-    ? "계단"
-    : "하얀 방";
-
-
+    currentScene.startsWith("start") ||
+    currentScene.startsWith("door")
+      ? "계단"
+      : "하얀 방";
 
   return (
     <div className={styles.container}>

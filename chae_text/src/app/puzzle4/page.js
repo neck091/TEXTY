@@ -4,52 +4,44 @@ import { useRouter } from "next/navigation";
 import "./puzzle4.css";
 
 const colors = ["red", "green", "blue", "yellow"];
-const options = ["red", "green", "blue", "yellow"];
-const timeLimit = 5; // 초 단위
 const totalStages = 5;
 
-function TimeAttackGame() {
+export default function puzzle4() {
+  const router = useRouter();
+
   const [currentStage, setCurrentStage] = useState(1);
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
-  const [userChoice, setUserChoice] = useState("");
-  const [remainingTime, setRemainingTime] = useState(timeLimit);
-  const [score, setScore] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(5); // 초 단위
   const [gameOver, setGameOver] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const router = useRouter(); // Next.js에서 useRouter 사용
 
   useEffect(() => {
-    let timer;
-    if (!paused) {
-      timer = setInterval(() => {
-        setRemainingTime((prevTime) => {
-          if (prevTime === 0) {
-            handleGameOver();
-            return timeLimit;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-    }
+    let timer = setInterval(() => {
+      setRemainingTime((prevTime) => {
+        if (prevTime === 0) {
+          handleGameOver();
+          return 5; // timeLimit 값을 하드코딩하여 삭제
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
 
     return () => clearInterval(timer);
-  }, [paused]);
+  }, []);
 
   useEffect(() => {
-    if (remainingTime === timeLimit) {
+    if (remainingTime === 5) {
+      // timeLimit 값을 하드코딩하여 삭제
       setCurrentColorIndex(Math.floor(Math.random() * colors.length));
     }
   }, [remainingTime]);
 
   const handleUserChoice = (choice) => {
-    setUserChoice(choice);
-    if (choice === options[currentColorIndex]) {
-      setScore((prevScore) => prevScore + 1);
+    if (choice === colors[currentColorIndex]) {
       if (currentStage >= totalStages) {
-        router.push("/escape-sub"); // 다음 페이지로 이동
+        router.push("/game2"); // 다음 페이지로 이동
       } else {
         setCurrentStage((prevStage) => prevStage + 1); // 스테이지 증가
-        setRemainingTime(timeLimit); // 시간 초기화
+        setRemainingTime(5); // timeLimit 값을 하드코딩하여 삭제
       }
     } else {
       handleGameOver();
@@ -58,26 +50,24 @@ function TimeAttackGame() {
 
   const handleGameOver = () => {
     setGameOver(true);
-    setPaused(true); // 게임 오버 시 일시 정지
   };
 
   const restartGame = () => {
     setCurrentStage(1);
     setCurrentColorIndex(Math.floor(Math.random() * colors.length));
-    setUserChoice("");
-    setRemainingTime(timeLimit);
-    setScore(0);
+    setRemainingTime(5); // timeLimit 값을 하드코딩하여 삭제
     setGameOver(false);
-    setPaused(false); // 재시작 시 일시 정지 해제
   };
 
   return (
-    <div className="color_text">
+    <div className="color_text shake">
       <h1 className="text">알맞는 색의 문으로 들어가세요</h1>
       {gameOver ? (
         <div>
-          <h2>게임 종료!</h2>
-          <button onClick={restartGame}>다시 시작</button>
+          <h2>당신은 죽었습니다.</h2>
+          <button className="restartGame" onClick={restartGame}>
+            다시 시작
+          </button>
         </div>
       ) : (
         <>
@@ -90,14 +80,13 @@ function TimeAttackGame() {
             style={{ backgroundColor: colors[currentColorIndex] }}
           ></div>
           <div>
-            {options.map((option, index) => (
+            {colors.map((color, index) => (
               <button
                 className="color button"
                 key={index}
-                onClick={() => handleUserChoice(option)}
-                disabled={paused}
+                onClick={() => handleUserChoice(color)}
               >
-                {option}
+                {color}
               </button>
             ))}
           </div>
@@ -106,5 +95,3 @@ function TimeAttackGame() {
     </div>
   );
 }
-
-export default TimeAttackGame;

@@ -17,8 +17,10 @@ export default function CupPuzzle() {
       (cup) => Math.abs(cup.volume - cups[0].volume) < 0.01
     );
     if (allEqual && cups.length > 0) {
-      alert("쿵. 어디선가 큰 소리가 들렸는데? 살펴봐야겠다.");
-      router.push("/escape2-sub");
+      setTimeout(() => {
+        confirm("쿵. 어디선가 큰 소리가 들렸는데? 살펴봐야겠다.");
+        router.push("/escape2-sub");
+      }, 500); // 3초 후에 실행
     }
   }, [cups]);
 

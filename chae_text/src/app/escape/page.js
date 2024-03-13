@@ -148,6 +148,7 @@ export default () => {
         "inventory",
         JSON.stringify(inventoryItems)
       );
+      window.dispatchEvent(new CustomEvent("inventoryUpdate"));
 
       // 여기에서 인벤토리 컴포넌트의 상태를 업데이트하는 이벤트를 발생시키거나,
       // 인벤토리 상태 관리를 위한 전역 상태 관리 솔루션(예: Context API, Redux)의 상태를 업데이트할 수 있습니다.
