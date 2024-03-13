@@ -41,7 +41,7 @@ export default () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push("/"); // 엔딩이 끝나면 '/' 경로로 이동
-    }, 15000); // 15초 후에 이동
+    }, 13000); // 15초 후에 이동
 
     return () => clearTimeout(timer);
   }, []); // 처음 한 번만 실행
